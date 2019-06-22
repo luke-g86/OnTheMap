@@ -21,19 +21,26 @@ class APIRequest{
         guard let url = URL(string: Endpoints.base) else {
             return
         }
-      
+        
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else {
+                DispatchQueue.main.async {
+                    completionHandler([], error)
+                }
                 return
-        }
+            }
             let decoder = JSONDecoder()
             do {
                 let requestObject = try decoder.decode(Results.self, from: data)
-                completionHandler(requestObject.results, nil)
+                DispatchQueue.main.async {
+                    completionHandler(requestObject.results, nil)
+                }
                 
             } catch {
-                completionHandler([], error)
-                print(error.localizedDescription)
+                DispatchQueue.main.async {
+                    completionHandler([], error)
+                    print(error.localizedDescription)
+                }
             }
         }
         task.resume()
