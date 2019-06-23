@@ -61,12 +61,17 @@ class MapViewController: UIViewController {
             return
         }
         StudentsLocationData.studentsData = data
+    }
+    
+    class func getCoordinatesVisibleArea() {
         
+       
     }
     
 }
 
 extension MapViewController: MKMapViewDelegate {
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
@@ -92,6 +97,15 @@ extension MapViewController: MKMapViewDelegate {
                 app.openURL(URL(string: toOpen)!)
             }
         }
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        
+        
+         var visibleArea = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        
+        print("current area: \(visibleArea)")
+        
     }
     
     
