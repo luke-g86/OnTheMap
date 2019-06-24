@@ -12,8 +12,10 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var tableView: UITableView!
     
     var annotations = [MKPointAnnotation]()
+    var coordinatesToDisplay: [StudentLocation]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,7 @@ class MapViewController: UIViewController {
     }
     
     func passDataToMap() {
-       
+        
         for val in StudentsLocationData.studentsData {
             let latitude = CLLocationDegrees(val.latitude)
             let longitute = CLLocationDegrees(val.longitude)
@@ -63,14 +65,27 @@ class MapViewController: UIViewController {
         StudentsLocationData.studentsData = data
     }
     
-    class func getCoordinatesVisibleArea() {
+     func getUsersFromVisibleArea(_ coordinates: CLLocation) {
+        let students = StudentsLocationData.studentsData
         
-       
+        let range = coordinates.coordinate.latitude ... coordinates.coordinate.longitude
+//        let studentsCoordinates =
+//
+        print(coordinates.coordinate)
+        
+//        for x in studentsCoordinates {
+//            print("longitude: \(x.longitude) latitude: \(x.latitude)")
+//        }
+//
+//        coordinatesToDisplay = studentsCoordinates
+//        print("new array: \(studentsCoordinates.count) old array: \(students.count)")
     }
     
 }
 
-extension MapViewController: MKMapViewDelegate {
+extension MapViewController: MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
+    
+    
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
@@ -102,11 +117,25 @@ extension MapViewController: MKMapViewDelegate {
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         
         
-         var visibleArea = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        var visibleArea = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         
-        print("current area: \(visibleArea)")
+        getUsersFromVisibleArea(visibleArea)
+        tableView.reloadData()
         
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard let coordinatesToDisplay = coordinatesToDisplay else {
+            return 1
+        }
+        return coordinatesToDisplay.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell")!
+        cell.textLabel?.text = coordinatesToDisplay?[indexPath.row].firstName ?? "no coordinates"
+        
+        return cell
+    }
     
 }
