@@ -19,13 +19,14 @@ class MapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         
         fetchData()
     }
     
     func fetchData() {
         
-        APIRequest.getStudentsLocation(completionHandler: { (data, error) in
+        APIRequests.getStudentsLocation(completionHandler: { (data, error) in
             guard let data = data else {
                 print(error?.localizedDescription ?? "")
                 return
@@ -69,16 +70,9 @@ class MapViewController: UIViewController {
         let students = StudentsLocationData.studentsData
         
         let range = coordinates.coordinate.latitude ... coordinates.coordinate.longitude
-//        let studentsCoordinates =
-//
+
         print(coordinates.coordinate)
-        
-//        for x in studentsCoordinates {
-//            print("longitude: \(x.longitude) latitude: \(x.latitude)")
-//        }
-//
-//        coordinatesToDisplay = studentsCoordinates
-//        print("new array: \(studentsCoordinates.count) old array: \(students.count)")
+
     }
     
 }
@@ -113,6 +107,8 @@ extension MapViewController: MKMapViewDelegate, UITableViewDataSource, UITableVi
             }
         }
     }
+    
+
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         
