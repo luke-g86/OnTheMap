@@ -14,6 +14,7 @@ class AddLocationOnMapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     
     var addressProvidedbyTheUser: String?
+    var nameToMap = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,21 @@ class AddLocationOnMapViewController: UIViewController {
         mapView.addGestureRecognizer(longTap)
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if nameToMap == true, addressProvidedbyTheUser != nil {
+            print(addressProvidedbyTheUser!)
+            nameToLocation(addressProvidedbyTheUser!) { (coordinate, error) in
+                guard let error = error else {
+                    print("coordinates from name: \(coordinate)")
+                    return
+                }
+                print(error.localizedDescription)
+            }
+            
+        }
+    }
+    
     
     @objc func longTapRecognizer(sender: UIGestureRecognizer){
         print("long tap")
@@ -73,14 +89,13 @@ class AddLocationOnMapViewController: UIViewController {
                 print(error?.localizedDescription)
                 return
             }
-            
             let stringArr = String(describing: data)
             let separated = stringArr.components(separatedBy: ",")
             annotation.title = separated[0]
             annotation.subtitle = separated[2]
         }
         annotation.coordinate = location
-
+        
         mapView.addAnnotation(annotation)
     }
 }

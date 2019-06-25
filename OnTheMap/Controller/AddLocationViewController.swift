@@ -24,6 +24,7 @@ class AddLocationViewController: UIViewController {
         locationSearchField.delegate = self
         okButton.isEnabled = false
         
+       
     }
     
     @IBAction func buttonTapped(sender: UIButton) {
@@ -32,11 +33,13 @@ class AddLocationViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addressToMap" {
+            print("addressToMap")
             guard let addLocationOnMap = segue.destination as? AddLocationOnMapViewController else {
                 print(Error.self)
                 return
             }
                 addLocationOnMap.addressProvidedbyTheUser = locationSearchField.text
+          
         }
     }
 }
@@ -46,6 +49,10 @@ extension AddLocationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        okButton.isEnabled = true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
