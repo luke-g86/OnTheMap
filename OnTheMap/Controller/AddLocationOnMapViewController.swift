@@ -23,6 +23,8 @@ class AddLocationOnMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.title = "Choose location"
         
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longTapRecognizer(sender:)))
         mapView.addGestureRecognizer(longTap)
@@ -51,6 +53,7 @@ class AddLocationOnMapViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
+       
         submitLocation.isHidden = true
         blurEffect.isHidden = true
         textField.isHidden = true

@@ -16,19 +16,32 @@ class AddLocationViewController: UIViewController {
     @IBOutlet weak var locationSearchField: UITextField!
     @IBOutlet weak var okButton: UIButton!
     @IBOutlet weak var seachOnMapButton: UIButton!
+    @IBOutlet weak var textLabel: UILabel!
+    
+    var user = LoginViewController()
+   
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard let first = user.user.firstName.first?.uppercased() else {
+            return
+        }
+         let userName = "\(first)"+"\(user.user.firstName.lowercased().dropFirst())"
+        
         locationSearchField.delegate = self
         okButton.isEnabled = false
-        
-        
+        textLabel.text = "\(userName), type location name or select it on a map"
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        okButton.isHidden = true
     }
     
     @IBAction func buttonTapped(sender: UIButton) {
         self.performSegue(withIdentifier: "addressToMap", sender: self)
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -44,16 +57,32 @@ class AddLocationViewController: UIViewController {
 extension AddLocationViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        resignFirstResponder()
+        textField.resignFirstResponder()
         return true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        okButton.isEnabled = true
+        okButton.isEnabled = false
+    
+        UIView.animate(withDuration: 0.3,
+                       delay: 0.2,
+                       options: .transitionFlipFromTop,
+                       animations: {
+                        self.okButton.isHidden = false
+        }, completion: nil)
+        
     }
+
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        okButton.isEnabled = true
+        
+        guard let text = textField.text else {
+            return
+        }
+        if text.count > 5 {
+            okButton.isEnabled = true
+        }
+ 
     }
 }
 

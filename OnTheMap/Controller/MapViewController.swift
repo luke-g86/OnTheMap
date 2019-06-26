@@ -16,6 +16,7 @@ class MapViewController: UIViewController {
     
     var annotations = [MKPointAnnotation]()
     var coordinatesToDisplay: [StudentLocation]?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,7 +117,7 @@ extension MapViewController: MKMapViewDelegate, UITableViewDataSource, UITableVi
         var visibleArea = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
         
         getUsersFromVisibleArea(visibleArea)
-        tableView.reloadData()
+//        tableView.reloadData()
         
     }
     

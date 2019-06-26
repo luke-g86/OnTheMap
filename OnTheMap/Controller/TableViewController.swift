@@ -14,6 +14,8 @@ class TableViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         print("data in StudentsDataArray \(StudentsLocationData.studentsData.count)")
+        self.title = "Students list"
+        navigationController?.navigationBar.prefersLargeTitles = true
 
     }
 }

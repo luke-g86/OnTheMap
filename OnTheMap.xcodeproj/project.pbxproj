@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04A11A6C22C357BB00181528 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A6B22C357BB00181528 /* UserData.swift */; };
 		04D9EC9922BCF86D000948B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D9EC9822BCF86D000948B3 /* AppDelegate.swift */; };
 		04D9EC9B22BCF86D000948B3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D9EC9A22BCF86D000948B3 /* MapViewController.swift */; };
 		04D9EC9E22BCF86D000948B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D9EC9C22BCF86D000948B3 /* Main.storyboard */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04A11A6B22C357BB00181528 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		04D9EC9522BCF86D000948B3 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D9EC9822BCF86D000948B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D9EC9A22BCF86D000948B3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				04D9ECBD22C07C59000948B3 /* Requests */,
 				04D9ECBC22C07C51000948B3 /* Responses */,
 				04D9ECAE22BCFC3A000948B3 /* StudentLocation.swift */,
+				04A11A6B22C357BB00181528 /* UserData.swift */,
 				04D9ECBE22C07C92000948B3 /* UserLoginResponse.swift */,
 				04D9ECB622BE9831000948B3 /* StudentsLocationData.swift */,
 				04D9ECB022BCFD48000948B3 /* Results.swift */,
@@ -214,6 +217,7 @@
 				04D9ECAF22BCFC3A000948B3 /* StudentLocation.swift in Sources */,
 				04D9ECBF22C07C92000948B3 /* UserLoginResponse.swift in Sources */,
 				04D9ECBB22C06E8E000948B3 /* ButtonsDesign.swift in Sources */,
+				04A11A6C22C357BB00181528 /* UserData.swift in Sources */,
 				04D9ECB522BE938B000948B3 /* TableViewController.swift in Sources */,
 				04D9ECC122C08468000948B3 /* UserLogin.swift in Sources */,
 				04D9EC9B22BCF86D000948B3 /* MapViewController.swift in Sources */,

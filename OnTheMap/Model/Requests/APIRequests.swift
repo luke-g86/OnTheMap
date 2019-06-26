@@ -25,12 +25,14 @@ class APIRequests{
         case establishSession
         case getStudentsLocation
         case postStudentLocation
+        case getUserData
         
         var urlBody: String {
             switch self {
             case .establishSession: return Endpoints.base + "session"
             case .getStudentsLocation: return Endpoints.base + "StudentLocation?order=-updatedAt"
             case .postStudentLocation: return Endpoints.base + "StudentLocation"
+            case .getUserData: return Endpoints.base + "users/" + Auth.keyAccount
             }
         }
         
@@ -100,6 +102,33 @@ class APIRequests{
                     print(error.localizedDescription)
                 }
             }
+        }
+        task.resume()
+    }
+    
+    class func getUserData(completionHandler: @escaping (UserData?, Error?) -> Void) {
+        let task = URLSession.shared.dataTask(with: Endpoints.getUserData.url) { (data, response, error) in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    completionHandler(nil, error)
+                }
+                return
+            }
+            let range = 5..<data.count
+            let newData = data.subdata(in: range)
+            let decoder = JSONDecoder()
+            do {
+                let requestObject = try decoder.decode(UserData.self, from: newData)
+                DispatchQueue.main.async {
+                    print(newData)
+                    completionHandler(requestObject, nil)
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil, error)
+                }
+            }
+            
         }
         task.resume()
     }
