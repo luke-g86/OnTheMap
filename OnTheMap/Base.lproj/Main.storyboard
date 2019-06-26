@@ -145,18 +145,18 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNu-Uo-bhs">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNu-Uo-bhs" customClass="ButtonsDesign" customModule="OnTheMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="140.33333333333331" width="343" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
                                             <segue destination="Eci-Mo-5ow" kind="show" identifier="addressToMap" id="K5O-1G-Gjx"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZI9-j4-DVP">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZI9-j4-DVP" customClass="ButtonsDesign" customModule="OnTheMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="190.33333333333331" width="343" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
-                                            <segue destination="Eci-Mo-5ow" kind="show" id="t7m-QA-PRn"/>
+                                            <segue destination="Eci-Mo-5ow" kind="show" id="9Jl-IW-3eT"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -195,12 +195,22 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="F0H-jl-G2b">
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                             </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2Q-nO-Zri" customClass="ButtonsDesign" customModule="OnTheMap" customModuleProvider="target">
+                                <rect key="frame" x="87.666666666666686" y="560.66666666666663" width="200" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="MHi-zs-SKc"/>
+                                    <constraint firstAttribute="height" constant="45" id="vUj-cy-LpA"/>
+                                </constraints>
+                                <state key="normal" title="Submit this location"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="p2Q-nO-Zri" firstAttribute="centerY" secondItem="Mxv-zI-8Zk" secondAttribute="centerY" constant="150" id="15x-RM-99S"/>
                             <constraint firstItem="F0H-jl-G2b" firstAttribute="top" secondItem="Mxv-zI-8Zk" secondAttribute="top" id="IAA-Gj-z3d"/>
                             <constraint firstItem="F0H-jl-G2b" firstAttribute="trailing" secondItem="Mxv-zI-8Zk" secondAttribute="trailing" id="RLG-9o-MBh"/>
                             <constraint firstItem="F0H-jl-G2b" firstAttribute="bottom" secondItem="Mxv-zI-8Zk" secondAttribute="bottom" id="jFP-4m-NOQ"/>
+                            <constraint firstItem="p2Q-nO-Zri" firstAttribute="centerX" secondItem="F0H-jl-G2b" secondAttribute="centerX" id="orK-pa-hgJ"/>
                             <constraint firstItem="F0H-jl-G2b" firstAttribute="leading" secondItem="Mxv-zI-8Zk" secondAttribute="leading" id="z0f-cx-4i4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Mxv-zI-8Zk"/>
@@ -208,6 +218,7 @@
                     <navigationItem key="navigationItem" id="UcW-Ot-pEC"/>
                     <connections>
                         <outlet property="mapView" destination="F0H-jl-G2b" id="Yla-hw-xbj"/>
+                        <outlet property="submitLocation" destination="p2Q-nO-Zri" id="zdn-vO-jcA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8t-a7-g9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -269,7 +280,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDi-bf-v6y" userLabel="LoginButton" customClass="LoginButton" customModule="OnTheMap" customModuleProvider="target">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PDi-bf-v6y" userLabel="LoginButton" customClass="ButtonsDesign" customModule="OnTheMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="254.99999999999994" width="343" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="40O-EL-qAp"/>
@@ -280,7 +291,7 @@
                                             <segue destination="3bu-9k-mnZ" kind="show" id="RDL-l2-EZf"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aa-2t-qeG" userLabel="FacebookLogin">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5aa-2t-qeG" userLabel="FacebookLogin" customClass="ButtonsDesign" customModule="OnTheMap" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="319.99999999999994" width="343" height="45"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="t7N-Rh-zVg"/>

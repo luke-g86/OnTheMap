@@ -24,7 +24,7 @@ class AddLocationViewController: UIViewController {
         locationSearchField.delegate = self
         okButton.isEnabled = false
         
-       
+        
     }
     
     @IBAction func buttonTapped(sender: UIButton) {
@@ -33,13 +33,10 @@ class AddLocationViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "addressToMap" {
-            print("addressToMap")
-            guard let addLocationOnMap = segue.destination as? AddLocationOnMapViewController else {
-                print(Error.self)
-                return
+            if let navigationVC = segue.destination as? UINavigationController, let targetVC = navigationVC.topViewController as? AddLocationOnMapViewController {
+                targetVC.addressProvidedbyTheUser = locationSearchField.text
+                targetVC.nameToMap = true
             }
-                addLocationOnMap.addressProvidedbyTheUser = locationSearchField.text
-          
         }
     }
 }
