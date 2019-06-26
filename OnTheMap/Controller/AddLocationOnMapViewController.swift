@@ -13,6 +13,9 @@ import MapKit
 class AddLocationOnMapViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var submitLocation: ButtonsDesign!
+    @IBOutlet weak var blurEffect: UIVisualEffectView!
+    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var cancelButton: UIButton!
     
     var addressProvidedbyTheUser: String?
     var nameToMap = false
@@ -23,9 +26,18 @@ class AddLocationOnMapViewController: UIViewController {
         
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longTapRecognizer(sender:)))
         mapView.addGestureRecognizer(longTap)
+        textField.delegate = self
         
     }
     
+    
+    @IBAction func submitTapped(sender: UIButton) {
+        textFieldAnimation(true)
+    }
+    
+    @IBAction func cancelButtonTapped(sender: UIButton) {
+        textFieldAnimation(false)
+    }
     
     func alert() {
         let alert = UIAlertController(title: "Sorry, no results", message: "No address found, please try again", preferredStyle: .alert)
@@ -40,6 +52,10 @@ class AddLocationOnMapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         submitLocation.isHidden = true
+        blurEffect.isHidden = true
+        textField.isHidden = true
+        cancelButton.isHidden = true
+        
         if nameToMap == true, addressProvidedbyTheUser != nil {
             print(addressProvidedbyTheUser!)
             nameToLocation(addressProvidedbyTheUser!) { (location, error) in
@@ -67,6 +83,7 @@ class AddLocationOnMapViewController: UIViewController {
             
         }
     }
+    
     
     
     func locationToName(location: CLLocationCoordinate2D, completionHandler: @escaping (CLPlacemark?, Error?) -> Void){
@@ -118,11 +135,16 @@ class AddLocationOnMapViewController: UIViewController {
         let region = MKCoordinateRegion(center: userPin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
         self.mapView.setRegion(region, animated: true)
         
-        buttonAnimation(submitLocation, submitLocation.isHidden)
+        buttonAnimation()
     }
     
-    func buttonAnimation(_ object: NSObject, _ activityFlag: Bool) {
-        if !activityFlag {
+    //MARK: Animations
+    
+    
+    // Submit button appears when user drop a pin on the map. If button is already visible it will pulse
+    
+    func buttonAnimation() {
+        if !submitLocation.isHidden {
             
             let pulse = CASpringAnimation(keyPath: "transform.scale")
             pulse.duration = 0.5
@@ -149,11 +171,42 @@ class AddLocationOnMapViewController: UIViewController {
             
         }
     }
+    
+    func textFieldAnimation(_ start: Bool) {
+        if start {
+            self.blurEffect.alpha = 0
+            self.blurEffect.isHidden = false
+            self.textField.alpha = 0
+            self.textField.isHidden = false
+            self.cancelButton.alpha = 0
+            self.cancelButton.isHidden = false
+            
+            
+            UIView.animate(withDuration: 1.0,
+                           delay: 0.5,
+                           options: .curveEaseIn,
+                           animations: {
+                            self.blurEffect.alpha = 1
+                            self.textField.alpha = 1
+                            self.cancelButton.alpha = 1
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 1.0,
+                           delay: 0.5,
+                           options: .curveLinear,
+                           animations: {
+                            self.blurEffect.alpha = 0
+                            self.textField.alpha = 0
+                            self.cancelButton.alpha = 0
+            }, completion: nil)
+  
+        }
+    }
 }
 
 
 
-extension AddLocationOnMapViewController: MKMapViewDelegate {
+extension AddLocationOnMapViewController: MKMapViewDelegate, UITextFieldDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         guard annotation is MKPointAnnotation else { print("no mkpointannotaions"); return nil }
         
@@ -179,4 +232,12 @@ extension AddLocationOnMapViewController: MKMapViewDelegate {
             }
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        resignFirstResponder()
+        textFieldAnimation(false)
+        return true
+    }
 }
+
+

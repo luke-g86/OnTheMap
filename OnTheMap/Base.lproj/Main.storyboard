@@ -195,6 +195,40 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="F0H-jl-G2b">
                                 <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                             </mapView>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zTv-2Q-j98">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4WN-7A-CoB">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="690"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your text here" textAlignment="natural" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="xsN-xH-Lxm">
+                                            <rect key="frame" x="16" y="100" width="343" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" id="YN6-YU-Cun"/>
+                                            </constraints>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qow-aD-lVr">
+                                            <rect key="frame" x="331" y="56" width="28" height="28"/>
+                                            <state key="normal" image="cancel"/>
+                                            <connections>
+                                                <action selector="cancelButtonTappedWithSender:" destination="XgU-bC-9BP" eventType="touchUpInside" id="tMG-H0-zRu"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="xsN-xH-Lxm" firstAttribute="leading" secondItem="4WN-7A-CoB" secondAttribute="leading" constant="16" id="4Qm-eQ-Nlb"/>
+                                        <constraint firstAttribute="trailing" secondItem="xsN-xH-Lxm" secondAttribute="trailing" constant="16" id="7Zu-aF-IMM"/>
+                                        <constraint firstItem="xsN-xH-Lxm" firstAttribute="top" secondItem="4WN-7A-CoB" secondAttribute="top" constant="100" id="9R8-Vs-WPS"/>
+                                        <constraint firstAttribute="trailing" secondItem="Qow-aD-lVr" secondAttribute="trailing" constant="16" id="X2B-Q5-q24"/>
+                                        <constraint firstItem="xsN-xH-Lxm" firstAttribute="centerX" secondItem="4WN-7A-CoB" secondAttribute="centerX" id="XiL-kZ-7Vm"/>
+                                        <constraint firstItem="xsN-xH-Lxm" firstAttribute="top" secondItem="Qow-aD-lVr" secondAttribute="bottom" constant="16" id="jPU-cx-MVa"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p2Q-nO-Zri" customClass="ButtonsDesign" customModule="OnTheMap" customModuleProvider="target">
                                 <rect key="frame" x="87.666666666666686" y="560.66666666666663" width="200" height="45"/>
                                 <constraints>
@@ -202,13 +236,20 @@
                                     <constraint firstAttribute="height" constant="45" id="vUj-cy-LpA"/>
                                 </constraints>
                                 <state key="normal" title="Submit this location"/>
+                                <connections>
+                                    <action selector="submitTappedWithSender:" destination="XgU-bC-9BP" eventType="touchUpInside" id="PhR-bs-GB6"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="p2Q-nO-Zri" firstAttribute="centerY" secondItem="Mxv-zI-8Zk" secondAttribute="centerY" constant="150" id="15x-RM-99S"/>
+                            <constraint firstItem="zTv-2Q-j98" firstAttribute="trailing" secondItem="Mxv-zI-8Zk" secondAttribute="trailing" id="1fJ-mh-KqT"/>
+                            <constraint firstItem="zTv-2Q-j98" firstAttribute="top" secondItem="Mxv-zI-8Zk" secondAttribute="top" id="8Ab-at-ynM"/>
                             <constraint firstItem="F0H-jl-G2b" firstAttribute="top" secondItem="Mxv-zI-8Zk" secondAttribute="top" id="IAA-Gj-z3d"/>
+                            <constraint firstItem="zTv-2Q-j98" firstAttribute="leading" secondItem="Mxv-zI-8Zk" secondAttribute="leading" id="Iqg-GY-Hp4"/>
                             <constraint firstItem="F0H-jl-G2b" firstAttribute="trailing" secondItem="Mxv-zI-8Zk" secondAttribute="trailing" id="RLG-9o-MBh"/>
+                            <constraint firstItem="zTv-2Q-j98" firstAttribute="bottom" secondItem="Mxv-zI-8Zk" secondAttribute="bottom" id="V4Z-ic-Dnn"/>
                             <constraint firstItem="F0H-jl-G2b" firstAttribute="bottom" secondItem="Mxv-zI-8Zk" secondAttribute="bottom" id="jFP-4m-NOQ"/>
                             <constraint firstItem="p2Q-nO-Zri" firstAttribute="centerX" secondItem="F0H-jl-G2b" secondAttribute="centerX" id="orK-pa-hgJ"/>
                             <constraint firstItem="F0H-jl-G2b" firstAttribute="leading" secondItem="Mxv-zI-8Zk" secondAttribute="leading" id="z0f-cx-4i4"/>
@@ -217,8 +258,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="UcW-Ot-pEC"/>
                     <connections>
+                        <outlet property="blurEffect" destination="zTv-2Q-j98" id="whW-jk-Wmh"/>
+                        <outlet property="cancelButton" destination="Qow-aD-lVr" id="Txw-FZ-PV1"/>
                         <outlet property="mapView" destination="F0H-jl-G2b" id="Yla-hw-xbj"/>
                         <outlet property="submitLocation" destination="p2Q-nO-Zri" id="zdn-vO-jcA"/>
+                        <outlet property="textField" destination="xsN-xH-Lxm" id="EjK-g5-nqH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8t-a7-g9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -387,6 +431,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cancel" width="28" height="28"/>
         <image name="launch" width="375" height="812"/>
         <image name="location-button" width="24" height="24"/>
         <image name="location-view-controller" width="375" height="812"/>
