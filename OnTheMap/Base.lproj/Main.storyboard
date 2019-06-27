@@ -162,7 +162,6 @@
                         <outlet property="locationSearchField" destination="fNx-BZ-OAY" id="SOm-7a-BP3"/>
                         <outlet property="searchAddressButton" destination="ZI9-j4-DVP" id="vNO-u2-9Lj"/>
                         <outlet property="textLabel" destination="ydc-MA-gTO" id="ytS-fR-WyK"/>
-                        <segue destination="4fD-V7-Vbl" kind="show" identifier="addressToMap" id="5L1-zC-eU5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTa-4m-t29" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -251,7 +250,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8t-a7-g9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6789.8550724637689" y="-329.46428571428572"/>
+            <point key="canvasLocation" x="6658" y="-329"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="lbI-W9-8MI">
@@ -430,7 +429,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wUK-xL-RVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6047.826086956522" y="-329.46428571428572"/>
+            <point key="canvasLocation" x="5916" y="-329"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IJX-0r-gNq">
