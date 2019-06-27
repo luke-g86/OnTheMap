@@ -79,7 +79,7 @@
                     <navigationItem key="navigationItem" id="9gs-cY-dEA">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="Location-1" id="XHF-lL-AiL">
                             <connections>
-                                <segue destination="W7j-uy-sXw" kind="presentation" id="fsK-Ja-IjP"/>
+                                <segue destination="grj-kN-Dwc" kind="presentation" id="fsK-Ja-IjP"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="BZN-wH-aXm"/>
@@ -101,10 +101,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location-view-controller" translatesAutoresizingMaskIntoConstraints="NO" id="KiS-3y-gFW">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="812"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="812"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="uwr-cr-Ian">
-                                <rect key="frame" x="16" y="318" width="382" height="270.33333333333326"/>
+                                <rect key="frame" x="16" y="340" width="382" height="270.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type location name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ydc-MA-gTO">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="20.333333333333332"/>
@@ -126,9 +126,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="bum-uS-aD4"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Search address"/>
                                         <connections>
-                                            <segue destination="Eci-Mo-5ow" kind="show" identifier="addressToMap" id="K5O-1G-Gjx"/>
+                                            <action selector="searchAddressButtonTappedWithSender:" destination="W7j-uy-sXw" eventType="touchUpInside" id="dYm-so-qpi"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZI9-j4-DVP" customClass="ButtonsDesign" customModule="OnTheMap" customModuleProvider="target">
@@ -136,9 +136,9 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="45" id="QKZ-ki-RXb"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <state key="normal" title="Choose on map"/>
                                         <connections>
-                                            <segue destination="Eci-Mo-5ow" kind="show" id="9Jl-IW-3eT"/>
+                                            <action selector="chooseOnMapButtonTappedWithSender:" destination="W7j-uy-sXw" eventType="touchUpInside" id="QfA-Sp-Nso"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -156,16 +156,18 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wsW-3u-YCD"/>
                     </view>
+                    <navigationItem key="navigationItem" id="iUz-ms-z1d"/>
                     <connections>
+                        <outlet property="chooseOnMapButton" destination="bNu-Uo-bhs" id="N2L-TU-zFS"/>
                         <outlet property="locationSearchField" destination="fNx-BZ-OAY" id="SOm-7a-BP3"/>
-                        <outlet property="okButton" destination="bNu-Uo-bhs" id="N2L-TU-zFS"/>
-                        <outlet property="seachOnMapButton" destination="ZI9-j4-DVP" id="vNO-u2-9Lj"/>
+                        <outlet property="searchAddressButton" destination="ZI9-j4-DVP" id="vNO-u2-9Lj"/>
                         <outlet property="textLabel" destination="ydc-MA-gTO" id="ytS-fR-WyK"/>
+                        <segue destination="4fD-V7-Vbl" kind="show" identifier="addressToMap" id="5L1-zC-eU5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTa-4m-t29" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3626" y="-322"/>
+            <point key="canvasLocation" x="5155.072463768116" y="-329.46428571428572"/>
         </scene>
         <!--Add Location On Map View Controller-->
         <scene sceneID="eSF-jn-rqc">
@@ -203,7 +205,6 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="xsN-xH-Lxm" firstAttribute="leading" secondItem="4WN-7A-CoB" secondAttribute="leading" constant="16" id="4Qm-eQ-Nlb"/>
-                                        <constraint firstAttribute="trailing" secondItem="xsN-xH-Lxm" secondAttribute="trailing" constant="16" id="7Zu-aF-IMM"/>
                                         <constraint firstItem="xsN-xH-Lxm" firstAttribute="top" secondItem="4WN-7A-CoB" secondAttribute="top" constant="100" id="9R8-Vs-WPS"/>
                                         <constraint firstAttribute="trailing" secondItem="Qow-aD-lVr" secondAttribute="trailing" constant="16" id="X2B-Q5-q24"/>
                                         <constraint firstItem="xsN-xH-Lxm" firstAttribute="centerX" secondItem="4WN-7A-CoB" secondAttribute="centerX" id="XiL-kZ-7Vm"/>
@@ -250,7 +251,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b8t-a7-g9A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5231" y="-322"/>
+            <point key="canvasLocation" x="6789.8550724637689" y="-329.46428571428572"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="lbI-W9-8MI">
@@ -378,6 +379,7 @@
         <!--Map-->
         <scene sceneID="bu7-7I-whK">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CPg-0B-LfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="tyE-7x-vZy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" image="MapView" selectedImage="MapView" id="r0h-si-ucu"/>
                     <toolbarItems/>
@@ -390,27 +392,8 @@
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="5DT-vg-54s"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CPg-0B-LfH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1853.5999999999999" y="18.472906403940886"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Skg-le-pnd">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Eci-Mo-5ow" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="33C-Aq-rPK">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="XgU-bC-9BP" kind="relationship" relationship="rootViewController" id="ghA-CJ-hTZ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vzs-f2-Gim" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4441" y="-322"/>
         </scene>
         <!--List-->
         <scene sceneID="tKW-jR-HgV">
@@ -431,6 +414,42 @@
             </objects>
             <point key="canvasLocation" x="1853.5999999999999" y="-634.72906403940885"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8Bp-g4-D60">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4fD-V7-Vbl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ayc-qu-kSS">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="XgU-bC-9BP" kind="relationship" relationship="rootViewController" id="9Wz-8C-2yd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wUK-xL-RVy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6047.826086956522" y="-329.46428571428572"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IJX-0r-gNq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="grj-kN-Dwc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9QI-iy-5AX">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="W7j-uy-sXw" kind="relationship" relationship="rootViewController" id="9I6-7W-OeF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MJs-4F-Ozk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4244.927536231884" y="-329.46428571428572"/>
+        </scene>
     </scenes>
     <resources>
         <image name="ListView" width="24" height="24"/>
@@ -440,7 +459,4 @@
         <image name="launch" width="375" height="812"/>
         <image name="location-view-controller" width="375" height="812"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="K5O-1G-Gjx"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -16,13 +16,16 @@ class MapViewController: UIViewController {
     
     var annotations = [MKPointAnnotation]()
     var coordinatesToDisplay: [StudentLocation]?
+    
 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         
         fetchData()
+        
     }
     
     func fetchData() {
@@ -65,6 +68,7 @@ class MapViewController: UIViewController {
             return
         }
         StudentsLocationData.studentsData = data
+    
     }
     
      func getUsersFromVisibleArea(_ coordinates: CLLocation) {

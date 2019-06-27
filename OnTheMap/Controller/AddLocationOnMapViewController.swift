@@ -21,10 +21,19 @@ class AddLocationOnMapViewController: UIViewController {
     var nameToMap = false
     let userPin = MKPointAnnotation()
     
+    @IBAction func backToMainScreen(sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.title = "Choose location"
+        
+        
+        
+        
+        
+        
+        
         
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longTapRecognizer(sender:)))
         mapView.addGestureRecognizer(longTap)
@@ -35,6 +44,7 @@ class AddLocationOnMapViewController: UIViewController {
     
     @IBAction func submitTapped(sender: UIButton) {
         textFieldAnimation(true)
+        
     }
     
     @IBAction func cancelButtonTapped(sender: UIButton) {
@@ -75,6 +85,8 @@ class AddLocationOnMapViewController: UIViewController {
             }
             
         }
+        
+        
     }
     
     
@@ -93,7 +105,7 @@ class AddLocationOnMapViewController: UIViewController {
         let loc = CLLocation.init(latitude: location.latitude, longitude: location.longitude)
         CLGeocoder().reverseGeocodeLocation(loc, completionHandler: {(placemarks: [CLPlacemark]?, error: Error?) in
             guard let placemarks = placemarks else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "")
                 completionHandler(nil, error)
                 return
             }
@@ -124,7 +136,7 @@ class AddLocationOnMapViewController: UIViewController {
         
         locationToName(location: location) { (data, error) in
             guard let data = data else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "")
                 return
             }
             let stringArr = String(describing: data)
