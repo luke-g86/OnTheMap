@@ -10,16 +10,10 @@ import Foundation
 
 class StorageController {
     
+    static var user = PostLocation.init()
 
     
-    init() {
-        
-        var user = PostLocation(key: "", firstName: "", lastName: "", city: "", mediaURL: "", latitude: "", longitude: "")
-     
-    }
-    
-//    func fetchUser() -> PostLocation? {
-//        guard let user
-//    }
-    
 }
+
+
+

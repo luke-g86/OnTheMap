@@ -10,6 +10,9 @@
 		04A11A6C22C357BB00181528 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A6B22C357BB00181528 /* UserData.swift */; };
 		04A11A7022C3943600181528 /* POSTlocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A6F22C3943600181528 /* POSTlocation.swift */; };
 		04A11A7222C3C22F00181528 /* StorageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A7122C3C22F00181528 /* StorageController.swift */; };
+		04A11A7422C5B0BD00181528 /* POSTresponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A7322C5B0BD00181528 /* POSTresponse.swift */; };
+		04A11A7622C5B57600181528 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A7522C5B57600181528 /* ResultViewController.swift */; };
+		04A11A7822C5EE8C00181528 /* Flag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A7722C5EE8C00181528 /* Flag.swift */; };
 		04D9EC9922BCF86D000948B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D9EC9822BCF86D000948B3 /* AppDelegate.swift */; };
 		04D9EC9B22BCF86D000948B3 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D9EC9A22BCF86D000948B3 /* MapViewController.swift */; };
 		04D9EC9E22BCF86D000948B3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04D9EC9C22BCF86D000948B3 /* Main.storyboard */; };
@@ -33,6 +36,9 @@
 		04A11A6B22C357BB00181528 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		04A11A6F22C3943600181528 /* POSTlocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSTlocation.swift; sourceTree = "<group>"; };
 		04A11A7122C3C22F00181528 /* StorageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageController.swift; sourceTree = "<group>"; };
+		04A11A7322C5B0BD00181528 /* POSTresponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSTresponse.swift; sourceTree = "<group>"; };
+		04A11A7522C5B57600181528 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		04A11A7722C5EE8C00181528 /* Flag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flag.swift; sourceTree = "<group>"; };
 		04D9EC9522BCF86D000948B3 /* OnTheMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OnTheMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D9EC9822BCF86D000948B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D9EC9A22BCF86D000948B3 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -100,12 +106,14 @@
 			isa = PBXGroup;
 			children = (
 				04A11A7122C3C22F00181528 /* StorageController.swift */,
+				04A11A7722C5EE8C00181528 /* Flag.swift */,
 				04D9ECBD22C07C59000948B3 /* Requests */,
 				04D9ECBC22C07C51000948B3 /* Responses */,
 				04D9ECAE22BCFC3A000948B3 /* StudentLocation.swift */,
 				04A11A6B22C357BB00181528 /* UserData.swift */,
 				04D9ECBE22C07C92000948B3 /* UserLoginResponse.swift */,
 				04D9ECB622BE9831000948B3 /* StudentsLocationData.swift */,
+				04A11A7322C5B0BD00181528 /* POSTresponse.swift */,
 				04D9ECB022BCFD48000948B3 /* Results.swift */,
 			);
 			path = Model;
@@ -128,6 +136,7 @@
 				04D9ECB422BE938B000948B3 /* TableViewController.swift */,
 				04D9ECC222C0BDC2000948B3 /* AddLocationViewController.swift */,
 				04D9ECC422C0F24A000948B3 /* AddLocationOnMapViewController.swift */,
+				04A11A7522C5B57600181528 /* ResultViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -221,11 +230,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				04D9ECAF22BCFC3A000948B3 /* StudentLocation.swift in Sources */,
+				04A11A7622C5B57600181528 /* ResultViewController.swift in Sources */,
 				04D9ECBF22C07C92000948B3 /* UserLoginResponse.swift in Sources */,
 				04D9ECBB22C06E8E000948B3 /* ButtonsDesign.swift in Sources */,
 				04A11A6C22C357BB00181528 /* UserData.swift in Sources */,
 				04D9ECB522BE938B000948B3 /* TableViewController.swift in Sources */,
 				04D9ECC122C08468000948B3 /* UserLogin.swift in Sources */,
+				04A11A7822C5EE8C00181528 /* Flag.swift in Sources */,
 				04D9EC9B22BCF86D000948B3 /* MapViewController.swift in Sources */,
 				04D9ECB122BCFD48000948B3 /* Results.swift in Sources */,
 				04A11A7222C3C22F00181528 /* StorageController.swift in Sources */,
@@ -236,6 +247,7 @@
 				04A11A7022C3943600181528 /* POSTlocation.swift in Sources */,
 				04D9ECB322BD1EF4000948B3 /* APIRequests.swift in Sources */,
 				04D9EC9922BCF86D000948B3 /* AppDelegate.swift in Sources */,
+				04A11A7422C5B0BD00181528 /* POSTresponse.swift in Sources */,
 				04D9ECB722BE9831000948B3 /* StudentsLocationData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,6 +33,9 @@ class AddLocationViewController: UIViewController {
         locationSearchField.delegate = self
         chooseOnMapButton.isEnabled = false
         textLabel.text = "\(userName), type location name or select it on a map"
+        
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,7 +84,6 @@ extension AddLocationViewController: UITextFieldDelegate {
 
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
         guard let text = textField.text else {
             return
         }

@@ -12,13 +12,10 @@ import MapKit
 class MapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var postLocationButton: UIBarButtonItem!
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
     
     var annotations = [MKPointAnnotation]()
-    var coordinatesToDisplay: [StudentLocation]?
-    
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +24,24 @@ class MapViewController: UIViewController {
         fetchData()
         
     }
+    
+    @IBAction func buttonTapped(sender: Any){
+        if Flag.dataSubmitted {
+            let dialogWindow = UIAlertController(title: "Location exists", message: "You've already posted your location. Would you like to overwrite it?", preferredStyle: .alert)
+            dialogWindow.addAction(UIAlertAction(title: "OK", style: .default, handler: { (action) -> Void in
+                self.performSegue(withIdentifier: "addLocation", sender: sender)
+            }))
+            dialogWindow.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {(action) -> Void in
+                dialogWindow.dismiss(animated: true, completion: nil)
+            }))
+            self.present(dialogWindow, animated: true, completion: nil)
+        } else {
+            performSegue(withIdentifier: "addLocation", sender: sender)
+        }
+        
+    }
+    
+
     
     func fetchData() {
         
@@ -68,28 +83,14 @@ class MapViewController: UIViewController {
             return
         }
         StudentsLocationData.studentsData = data
-    
     }
-    
-     func getUsersFromVisibleArea(_ coordinates: CLLocation) {
-        let students = StudentsLocationData.studentsData
-        
-        let range = coordinates.coordinate.latitude ... coordinates.coordinate.longitude
-
-        print(coordinates.coordinate)
-
-    }
-    
 }
 
-extension MapViewController: MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
-    
-    
+extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
-        
         var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
         
         if pinView == nil {
@@ -113,30 +114,10 @@ extension MapViewController: MKMapViewDelegate, UITableViewDataSource, UITableVi
         }
     }
     
-
+    
     
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        
-        
         var visibleArea = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
-        
-        getUsersFromVisibleArea(visibleArea)
-//        tableView.reloadData()
-        
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let coordinatesToDisplay = coordinatesToDisplay else {
-            return 1
-        }
-        return coordinatesToDisplay.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "tableCell")!
-        cell.textLabel?.text = coordinatesToDisplay?[indexPath.row].firstName ?? "no coordinates"
-        
-        return cell
     }
     
 }

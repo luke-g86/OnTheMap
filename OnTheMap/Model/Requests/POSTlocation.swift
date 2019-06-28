@@ -10,31 +10,42 @@ import Foundation
 
 struct PostLocation: Codable {
     
-    var key: String
+    var uniqueKey: String
     var firstName: String
     var lastName: String
-    var city: String
+    var mapString: String
     var mediaURL: String
-    var latitude: String
-    var longitude: String
+    var latitude: Double
+    var longitude: Double
     
     enum CodingKeys: String, CodingKey {
-        case key = "uniqueKey"
+        case uniqueKey
         case firstName
         case lastName
-        case city = "mapString"
+        case mapString
         case mediaURL
         case latitude
         case longitude
     }
     
-    init(key: String, firstName: String, lastName: String, city: String, mediaURL: String, latitude: String, longitude: String) {
-        self.key = key
-        self.firstName = firstName
-        self.lastName = lastName
-        self.city = city
-        self.mediaURL = mediaURL
-        self.latitude = latitude
-        self.longitude = longitude
+    init(
+        uniqueKey: String? = nil,
+        firstName: String? = nil,
+        lastName: String? = nil,
+        mapString: String? = nil,
+        mediaURL: String? = nil,
+        latitude: Double? = nil,
+        longitude: Double? = nil
+        )
+    {
+        self.uniqueKey = uniqueKey ?? "nil"
+        self.firstName = firstName ?? "nil"
+        self.lastName = lastName ?? "nil"
+        self.mapString = mapString ?? "nil"
+        self.mediaURL = mediaURL ?? "nil"
+        self.latitude = latitude ?? 0
+        self.longitude = longitude ?? 0
+        
     }
 }
+

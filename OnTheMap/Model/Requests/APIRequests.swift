@@ -70,12 +70,12 @@ class APIRequests{
                 }
             }
             catch {
-                    DispatchQueue.main.async {
-                        completionHandler(false, error)
-                    }
+                DispatchQueue.main.async {
+                    completionHandler(false, error)
                 }
             }
-    
+        }
+        
         task.resume()
     }
     
@@ -133,5 +133,43 @@ class APIRequests{
         task.resume()
     }
     
+    class func postStudentLocation(userGatheredData: PostLocation, completionHandler: @escaping (PostResponse?, Error?) -> Void) {
+        
+        var request = URLRequest(url: Endpoints.postStudentLocation.url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        print(userGatheredData)
+        
+        let body = PostLocation(uniqueKey: StorageController.user.uniqueKey, firstName: StorageController.user.firstName, lastName: StorageController.user.lastName, mapString: StorageController.user.mapString, mediaURL: StorageController.user.mediaURL, latitude: StorageController.user.latitude, longitude: StorageController.user.longitude)
+
+        let encoder = JSONEncoder()
+        request.httpBody = try! encoder.encode(body)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    return completionHandler(nil, error)
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(PostResponse.self, from: data)
+                DispatchQueue.main.async {
+                    completionHandler(responseObject, nil)
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    completionHandler(nil, error)
+                }
+            }
+        }
+        
+        task.resume()
+    }
+    
 }
+
+
 

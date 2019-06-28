@@ -44,8 +44,8 @@ class LoginViewController: UIViewController {
            print(error?.localizedDescription ?? "")
             return
         }
-        user = UserData(firstName: response.firstName, lastName: response.lastName, key: response.key)
-        print("user data: \(user)")
+        StorageController.user = PostLocation(uniqueKey: response.key, firstName: response.firstName, lastName: response.lastName, mapString: nil, mediaURL: nil, latitude: nil, longitude: nil)
+        
         
     }
 }
