@@ -17,25 +17,54 @@ class AddLocationOnMapViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var cancelButton: UIButton!
     
+    
     var addressProvidedbyTheUser: String?
     var nameToMap = false
     let userPin = MKPointAnnotation()
+    var postResponse: PostResponse!
+    
+    @IBAction func backToMainScreen(sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.prefersLargeTitles = false
-        navigationController?.title = "Choose location"
         
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longTapRecognizer(sender:)))
         mapView.addGestureRecognizer(longTap)
         textField.delegate = self
         
+        
     }
     
     
     @IBAction func submitTapped(sender: UIButton) {
-        textFieldAnimation(true)
+        if blurEffect.isHidden {
+            StorageController.user.latitude = userPin.coordinate.latitude
+            StorageController.user.longitude = userPin.coordinate.longitude
+            
+            print(StorageController.user)
+            textFieldAnimation(true)
+        } else {
+            textField.endEditing(true)
+            print(String(describing: StorageController.user))
+            
+            APIRequests.postStudentLocation(userGatheredData: StorageController.user) { (data, error: Error?) in
+                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "ResultView") as! ResultViewController
+                guard let data = data else {
+                    vc.success = false
+                    return
+                }
+                vc.success = true
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            
+        }
     }
+    
+    
     
     @IBAction func cancelButtonTapped(sender: UIButton) {
         textFieldAnimation(false)
@@ -53,7 +82,7 @@ class AddLocationOnMapViewController: UIViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
-       
+        
         submitLocation.isHidden = true
         blurEffect.isHidden = true
         textField.isHidden = true
@@ -88,12 +117,11 @@ class AddLocationOnMapViewController: UIViewController {
     }
     
     
-    
     func locationToName(location: CLLocationCoordinate2D, completionHandler: @escaping (CLPlacemark?, Error?) -> Void){
         let loc = CLLocation.init(latitude: location.latitude, longitude: location.longitude)
         CLGeocoder().reverseGeocodeLocation(loc, completionHandler: {(placemarks: [CLPlacemark]?, error: Error?) in
             guard let placemarks = placemarks else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "")
                 completionHandler(nil, error)
                 return
             }
@@ -124,14 +152,21 @@ class AddLocationOnMapViewController: UIViewController {
         
         locationToName(location: location) { (data, error) in
             guard let data = data else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "")
                 return
             }
+            
+            if let city = data.administrativeArea {
+                StorageController.user.mapString = city
+            }
+            
             let stringArr = String(describing: data)
             let separated = stringArr.components(separatedBy: ",")
+            
             self.userPin.title = separated[0]
             self.userPin.subtitle = separated[2]
         }
+        
         userPin.coordinate = location
         mapView.addAnnotation(userPin)
         
@@ -185,6 +220,8 @@ class AddLocationOnMapViewController: UIViewController {
             self.cancelButton.isHidden = false
             
             
+            
+            
             UIView.animate(withDuration: 1.0,
                            delay: 0.5,
                            options: .curveEaseIn,
@@ -202,7 +239,7 @@ class AddLocationOnMapViewController: UIViewController {
                             self.textField.alpha = 0
                             self.cancelButton.alpha = 0
             }, completion: nil)
-  
+            
         }
     }
 }
@@ -239,8 +276,15 @@ extension AddLocationOnMapViewController: MKMapViewDelegate, UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         resignFirstResponder()
         textFieldAnimation(false)
+        StorageController.user.mediaURL = textField.text ?? " "
         return true
     }
+    
+    
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        StorageController.user.mediaURL = textField.text ?? " "
+    }
+    
 }
 
 

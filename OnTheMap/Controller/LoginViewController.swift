@@ -17,7 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var facebookLoginButton: UIButton!
     
     var user = UserData(firstName: "john", lastName: "doe", key: "123")
-
+    
     
     @IBAction func loginTapped(_ sender: Any) {
         APIRequests.login(username: APIRequests.udacityLogin.udacity.username, password: APIRequests.udacityLogin.udacity.password, completionHandler: loginHandleResponse(success:error:))
@@ -34,18 +34,19 @@ class LoginViewController: UIViewController {
             print("ok")
             APIRequests.getUserData(completionHandler: userDataResponseHandler(response:error:))
         } else {
-            print(error?.localizedDescription)
+            print(error?.localizedDescription ?? "")
         }
     }
     
     
     func userDataResponseHandler(response: UserData?, error: Error?) {
         guard let response = response else {
-            print(error?.localizedDescription)
+           print(error?.localizedDescription ?? "")
             return
         }
-        user = UserData(firstName: response.firstName, lastName: response.lastName, key: response.key)
-        print("user data: \(user)")
+        StorageController.user = PostLocation(uniqueKey: response.key, firstName: response.firstName, lastName: response.lastName, mapString: nil, mediaURL: nil, latitude: nil, longitude: nil)
+        
+        
     }
 }
 
