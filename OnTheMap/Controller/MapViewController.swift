@@ -113,6 +113,7 @@ class MapViewController: UIViewController {
     func handleGetStudentsLocationData(data: [StudentLocation]?, error: Error?) {
         guard let data = data else{
             print(error?.localizedDescription ?? "error: nil")
+            alert("Students Location Error", "Students' data not available or network error")
             return
         }
         StudentsLocationData.studentsData = data
@@ -138,6 +139,16 @@ class MapViewController: UIViewController {
         }
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
+    }
+    
+    func alert(_ title: String, _ messageBody: String) {
+        
+        let alert = UIAlertController(title: title, message: messageBody, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            
+        }
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -172,8 +183,6 @@ extension MapViewController: MKMapViewDelegate {
             guard var subtitle = annotation.subtitle else {
                 return
             }
-            
-            
             if subtitle!.isValidURL {
                 if subtitle!.starts(with: "www") {
                     subtitle! = "https://" + subtitle!
@@ -182,12 +191,7 @@ extension MapViewController: MKMapViewDelegate {
                 UIApplication.shared.open(url!)
             } else {
                 
-                let alert = UIAlertController(title: "No URL", message: "There's no URL to open", preferredStyle: .alert)
-                let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
-                    
-                }
-                alert.addAction(action)
-                self.present(alert, animated: true, completion: nil)
+                alert("No URL", "There's no URL to open")
             }
         }
     }

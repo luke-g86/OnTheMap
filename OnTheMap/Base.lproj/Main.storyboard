@@ -56,6 +56,11 @@
                         <viewLayoutGuide key="safeArea" id="VaE-sd-EJp"/>
                     </view>
                     <navigationItem key="navigationItem" id="qwa-Gy-3Xr">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="Location-active" id="tJ6-tg-Pm8">
+                            <connections>
+                                <action selector="buttonTappedWithSender:" destination="u1c-Kf-qGr" id="rVC-hD-MCi"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Logout" id="hhM-2d-f4n">
                             <connections>
                                 <action selector="logoutButtonTappedWithSender:" destination="u1c-Kf-qGr" id="jPw-nX-A8H"/>
@@ -64,6 +69,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="logoutButton" destination="hhM-2d-f4n" id="egb-ZR-iOX"/>
+                        <outlet property="postLocationButton" destination="tJ6-tg-Pm8" id="FKp-SF-QuC"/>
+                        <segue destination="grj-kN-Dwc" kind="show" identifier="addLocation" id="ty8-de-1aV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hyt-Rn-5pR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -586,4 +593,7 @@
         <image name="launch" width="375" height="812"/>
         <image name="location-view-controller" width="375" height="812"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="ty8-de-1aV"/>
+    </inferredMetricsTieBreakers>
 </document>
