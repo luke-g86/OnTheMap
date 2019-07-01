@@ -32,7 +32,7 @@ class ResultViewController: UIViewController {
             Flag.dataSubmitted = true
         } else {
             label.text = "Oops... something went wrong. Check your internet connection and try again"
-            imageView.image = UIImage(named: "fail")
+            imageView.image = UIImage(named: "Fail")
             Flag.dataSubmitted = false
         }
     }
