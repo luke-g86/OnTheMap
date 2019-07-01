@@ -34,7 +34,7 @@ class AddLocationOnMapViewController: UIViewController {
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longTapRecognizer(sender:)))
         mapView.addGestureRecognizer(longTap)
         textField.delegate = self
-        
+        self.navigationItem.title = "Long press to select your location"
         
     }
     
