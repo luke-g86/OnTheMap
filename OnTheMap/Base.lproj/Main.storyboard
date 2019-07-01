@@ -100,7 +100,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="9gs-cY-dEA">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="location-active" id="XHF-lL-AiL">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="Location-active" id="XHF-lL-AiL">
                             <connections>
                                 <action selector="buttonTappedWithSender:" destination="BYZ-38-t0r" id="SBd-Fz-KbV"/>
                             </connections>
@@ -577,13 +577,13 @@
     </scenes>
     <resources>
         <image name="ListView" width="24" height="24"/>
+        <image name="Location-active" width="24" height="24"/>
         <image name="MapView" width="24" height="24"/>
         <image name="background" width="375" height="812"/>
         <image name="button" width="314" height="79"/>
         <image name="cancel" width="28" height="28"/>
         <image name="cancel-color" width="28" height="28"/>
         <image name="launch" width="375" height="812"/>
-        <image name="location-active" width="24" height="24"/>
         <image name="location-view-controller" width="375" height="812"/>
     </resources>
 </document>
