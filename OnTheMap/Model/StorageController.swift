@@ -8,11 +8,12 @@
 
 import Foundation
 
+
 class StorageController {
     
     static var user = PostLocation.init()
+    static var postResponse: PostResponse?
 
-    
 }
 
 

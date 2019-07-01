@@ -18,24 +18,26 @@ class AddLocationViewController: UIViewController {
     @IBOutlet weak var searchAddressButton: UIButton!
     @IBOutlet weak var textLabel: UILabel!
     
-    var user = LoginViewController()
+    @IBOutlet weak var cancelButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.isNavigationBarHidden = true
         
-        guard let first = user.user.firstName.first?.uppercased() else {
-            return
+        var userName: String {
+            
+            let firstChar = StorageController.user.firstName.first!.uppercased()
+            let lastCharacters = StorageController.user.firstName.dropFirst().lowercased()
+            
+            return firstChar+lastCharacters
         }
-         let userName = "\(first)"+"\(user.user.firstName.lowercased().dropFirst())"
         
         locationSearchField.delegate = self
         chooseOnMapButton.isEnabled = false
         textLabel.text = "\(userName), type location name or select it on a map"
         
-        
-        
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,8 +46,10 @@ class AddLocationViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-             self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = false
     }
+    
+    // MARK: Customer types address to be found and displayed
     
     @IBAction func searchAddressButtonTapped(sender: UIButton) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -56,12 +60,19 @@ class AddLocationViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    // MARK: Customer wants to select location on a map by himself
+    
     @IBAction func chooseOnMapButtonTapped(sender: UIButton) {
         let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "LocationOnTheMap") as! AddLocationOnMapViewController
         vc.navigationItem.title = "Choose location on a map"
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func backToMainScreen(sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }
 
 extension AddLocationViewController: UITextFieldDelegate {
@@ -72,7 +83,7 @@ extension AddLocationViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         chooseOnMapButton.isEnabled = false
-    
+        
         UIView.animate(withDuration: 0.3,
                        delay: 0.2,
                        options: .transitionFlipFromTop,
@@ -81,7 +92,8 @@ extension AddLocationViewController: UITextFieldDelegate {
         }, completion: nil)
         
     }
-
+    
+    //MARK: If textfield has more then 5 characters button 'search on map' becomes active
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let text = textField.text else {
@@ -90,7 +102,7 @@ extension AddLocationViewController: UITextFieldDelegate {
         if text.count > 5 {
             chooseOnMapButton.isEnabled = true
         }
- 
+        
     }
 }
 

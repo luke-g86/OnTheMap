@@ -21,7 +21,7 @@ class AddLocationOnMapViewController: UIViewController {
     var addressProvidedbyTheUser: String?
     var nameToMap = false
     let userPin = MKPointAnnotation()
-    var postResponse: PostResponse!
+    
     
     @IBAction func backToMainScreen(sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
@@ -29,6 +29,7 @@ class AddLocationOnMapViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         let longTap = UILongPressGestureRecognizer(target: self, action: #selector(longTapRecognizer(sender:)))
         mapView.addGestureRecognizer(longTap)
@@ -37,38 +38,75 @@ class AddLocationOnMapViewController: UIViewController {
         
     }
     
+
+    // MARK: Network connection callers for POST and PUT
+    
+    func networkConnection(completion: @escaping (Bool) -> Void){
+    
+        // If user hasn't uploaded his location before flag is set to false and the POST method is called
+        
+        if !Flag.dataSubmitted {
+            APIRequests.postStudentLocation(userGatheredData: StorageController.user) { (data, error) in
+                guard let data = data else {
+                    print(error?.localizedDescription ?? "")
+                    completion(false)
+                    return
+                }
+                print("post response")
+                Flag.dataSubmitted = true
+                StorageController.postResponse = data
+                
+                completion(true)
+                
+            }
+            
+            // If user already uploaded his location flag is set to true. If on top of that data in the app are available Update method is called
+            
+        } else {
+            guard let data = StorageController.postResponse else {
+                completion(false)
+                return
+            }
+                APIRequests.updateStudentLocation(objectID: data.objectId, userGatheredData: StorageController.user) { (success: Bool, error: Error?) in
+                if success {
+                    print("user data updated")
+                    completion(true)
+                }
+                print(error?.localizedDescription ?? "")
+            }
+        }
+        
+    }
+
     
     @IBAction func submitTapped(sender: UIButton) {
+        
         if blurEffect.isHidden {
             StorageController.user.latitude = userPin.coordinate.latitude
             StorageController.user.longitude = userPin.coordinate.longitude
-            
+    
             print(StorageController.user)
             textFieldAnimation(true)
         } else {
             textField.endEditing(true)
             print(String(describing: StorageController.user))
             
-            APIRequests.postStudentLocation(userGatheredData: StorageController.user) { (data, error: Error?) in
-                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "ResultView") as! ResultViewController
-                guard let data = data else {
-                    vc.success = false
-                    return
-                }
-                vc.success = true
-                self.navigationController?.pushViewController(vc, animated: true)
+            let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "ResultView") as! ResultViewController
+          
+            networkConnection { (success) in
+                vc.status(success)
             }
-            
-            
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
-    
+
     
     @IBAction func cancelButtonTapped(sender: UIButton) {
         textFieldAnimation(false)
     }
+    
+    //MARK: Alert to be displayed if something went wrong.
     
     func alert() {
         let alert = UIAlertController(title: "Sorry, no results", message: "No address found, please try again", preferredStyle: .alert)
@@ -88,8 +126,9 @@ class AddLocationOnMapViewController: UIViewController {
         textField.isHidden = true
         cancelButton.isHidden = true
         
+        // MARK: If user typed the address, then it is converted into coordinates which are used to display the desired area on the map, so the user could easily select desired spot.
+        
         if nameToMap == true, addressProvidedbyTheUser != nil {
-            print(addressProvidedbyTheUser!)
             nameToLocation(addressProvidedbyTheUser!) { (location, error) in
                 guard let error = error else {
                     print("coordinates from name: \(location)")
@@ -102,10 +141,8 @@ class AddLocationOnMapViewController: UIViewController {
                 print(error.localizedDescription)
                 self.alert()
             }
-            
         }
     }
-    
     
     @objc func longTapRecognizer(sender: UIGestureRecognizer){
         if sender.state == .began {
@@ -116,6 +153,7 @@ class AddLocationOnMapViewController: UIViewController {
         }
     }
     
+    // MARK: When user selects desired location, he will see details of the placemark under the pin dropped on the map
     
     func locationToName(location: CLLocationCoordinate2D, completionHandler: @escaping (CLPlacemark?, Error?) -> Void){
         let loc = CLLocation.init(latitude: location.latitude, longitude: location.longitude)
@@ -130,11 +168,17 @@ class AddLocationOnMapViewController: UIViewController {
         })
     }
     
+    // MARK : address provided by the user is being translated into the locaation coordinates
+    
     func nameToLocation(_ locationName: String, completionHandler: @escaping (CLLocationCoordinate2D, Error?) -> Void) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(locationName) { (placemarks, error) in
             guard let placemarks = placemarks else {
                 completionHandler(kCLLocationCoordinate2DInvalid, error)
+                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let vc = storyboard.instantiateViewController(withIdentifier: "ResultView") as! ResultViewController
+                vc.status(false)
+                self.navigationController?.pushViewController(vc, animated: true)
                 return
             }
             let placemark = placemarks[0]
@@ -145,11 +189,12 @@ class AddLocationOnMapViewController: UIViewController {
         }
     }
     
+    // MARK : Annotations.
+        // Dropped pin displays information about the place like city (administrative area) and street name
     
     func addAnnotation(location: CLLocationCoordinate2D){
         
         mapView.removeAnnotation(userPin)
-        
         locationToName(location: location) { (data, error) in
             guard let data = data else {
                 print(error?.localizedDescription ?? "")
@@ -219,9 +264,7 @@ class AddLocationOnMapViewController: UIViewController {
             self.cancelButton.alpha = 0
             self.cancelButton.isHidden = false
             
-            
-            
-            
+
             UIView.animate(withDuration: 1.0,
                            delay: 0.5,
                            options: .curveEaseIn,
