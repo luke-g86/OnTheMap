@@ -32,7 +32,7 @@ class APIRequests{
         var urlBody: String {
             switch self {
             case .establishSession: return Endpoints.base + "session"
-            case .getStudentsLocation: return Endpoints.base + "StudentLocation?order=-updatedAt"
+            case .getStudentsLocation: return Endpoints.base + "StudentLocation?order=-updatedAt?limit=100"
             case .postStudentLocation: return Endpoints.base + "StudentLocation"
             case .updateStudentLocation(let objectID): return Endpoints.base + "StudentLocation/\(objectID)"
             case .getUserData: return Endpoints.base + "users/" + Auth.keyAccount
