@@ -10,7 +10,7 @@ import Foundation
 
 class APIRequests{
     
-    static let udacityLogin = UserLogin(udacity: Login(username: "gajewski.lukasz@hotmail.com", password: "CWFe5T9Hs6B"))
+//    static let udacityLogin = UserLogin(udacity: Login(username: "gajewski.lukasz@hotmail.com", password: "CWFe5T9Hs6B"))
     
     struct Auth {
         static var keyAccount = ""
@@ -25,14 +25,18 @@ class APIRequests{
         case establishSession
         case getStudentsLocation
         case postStudentLocation
+        case updateStudentLocation (String)
         case getUserData
+        case logout
         
         var urlBody: String {
             switch self {
             case .establishSession: return Endpoints.base + "session"
             case .getStudentsLocation: return Endpoints.base + "StudentLocation?order=-updatedAt"
             case .postStudentLocation: return Endpoints.base + "StudentLocation"
+            case .updateStudentLocation(let objectID): return Endpoints.base + "StudentLocation/\(objectID)"
             case .getUserData: return Endpoints.base + "users/" + Auth.keyAccount
+            case .logout: return Endpoints.base + "session"
             }
         }
         
@@ -57,6 +61,7 @@ class APIRequests{
                 }
                 return
             }
+            print("login: \(String(data: data, encoding: .utf8))")
             let range = 5..<data.count
             let newData = data.subdata(in: range)
             let decoder = JSONDecoder()
@@ -139,10 +144,8 @@ class APIRequests{
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        print(userGatheredData)
+        let body = userGatheredData
         
-        let body = PostLocation(uniqueKey: StorageController.user.uniqueKey, firstName: StorageController.user.firstName, lastName: StorageController.user.lastName, mapString: StorageController.user.mapString, mediaURL: StorageController.user.mediaURL, latitude: StorageController.user.latitude, longitude: StorageController.user.longitude)
-
         let encoder = JSONEncoder()
         request.httpBody = try! encoder.encode(body)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -157,6 +160,7 @@ class APIRequests{
                 let responseObject = try decoder.decode(PostResponse.self, from: data)
                 DispatchQueue.main.async {
                     completionHandler(responseObject, nil)
+                    print("true")
                 }
             }
             catch {
@@ -169,6 +173,127 @@ class APIRequests{
         task.resume()
     }
     
+    
+    class func updateStudentLocation(objectID: String, userGatheredData: PostLocation, completionHandler: @escaping (Bool, Error?) -> Void) {
+        
+        var request = URLRequest(url: Endpoints.updateStudentLocation(objectID).url)
+        request.httpMethod = "PUT"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body = userGatheredData
+        
+        let encoder = JSONEncoder()
+        request.httpBody = try! encoder.encode(body)
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    return completionHandler(false, error)
+                }
+                return
+            }
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(UpdateResponse.self, from: data)
+                DispatchQueue.main.async {
+                    print("update response : \(String(describing: responseObject))")
+                    completionHandler(true, nil)
+                    print("true")
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    completionHandler(false, error)
+                }
+            }
+        }
+        
+        task.resume()
+    }
+    
+    class func logout(completionHandler: @escaping(Bool, Error?) -> Void) {
+        
+        var request = URLRequest(url: Endpoints.logout.url)
+        
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard let data = data else {
+                DispatchQueue.main.async {
+                    return completionHandler(false, error)
+                }
+                return
+            }
+            
+            let range = 5..<data.count
+            let newData = data.subdata(in: range)
+            let decoder = JSONDecoder()
+            do {
+                
+               let responseObject = try decoder.decode(SessionLogout.self, from: newData)
+                DispatchQueue.main.async {
+
+                    print(String(describing: responseObject.self))
+                    self.Auth.sessionId = ""
+                    self.Auth.keyAccount = ""
+                    completionHandler(true, nil)
+                }
+            }
+            catch {
+                DispatchQueue.main.async {
+                    completionHandler(false, error)
+                    print(error)
+                }
+            }
+        }
+        
+        task.resume()
+    }
+    
+    class func logoutByUdacity() {
+        
+        var request = URLRequest(url: URL(string: "https://onthemap-api.udacity.com/v1/session")!)
+        request.httpMethod = "DELETE"
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { data, response, error in
+            if error != nil { // Handle error…
+                return
+            }
+            let range = 5..<data!.count
+            let newData = data?.subdata(in: range) /* subset response data! */
+            print(String(data: newData!, encoding: .utf8)!)
+            
+            
+            let decoder = JSONDecoder()
+            do {
+                let responseObject = try decoder.decode(SessionLogout.self, from: newData!)
+           
+                    print("update response : \(String(describing: responseObject))")
+                print(responseObject)
+                    print("logout")
+                }
+            
+            catch {
+                print(error)
+                }
+            }
+        
+        task.resume()
+    }
 }
 
 

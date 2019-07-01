@@ -11,6 +11,7 @@ import Foundation
 struct Flag {
     
     static var dataSubmitted = false
+    static var isLoggin = false
 
     
 }

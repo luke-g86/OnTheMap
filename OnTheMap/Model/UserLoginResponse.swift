@@ -13,21 +13,22 @@ struct UserLoginResponse: Codable {
     let account: Account
     let session: Session
     
-    enum LoginResponseKeys: String, CodingKey { case account, session }
+    enum CodingKeys: String, CodingKey { case account, session }
 }
 
 struct Account: Codable {
     let registered: Bool
     let key: String
     
-    enum AccountKeys: String, CodingKey { case registered, key }
+    enum CodingKeys: String, CodingKey { case registered, key }
     }
 
 struct Session: Codable {
     let id: String
     let expiration: String
     
-    enum SessionKeys: String, CodingKey { case id, expiration }
+    enum CodingKeys: String, CodingKey { case id, expiration }
 }
+
 
 

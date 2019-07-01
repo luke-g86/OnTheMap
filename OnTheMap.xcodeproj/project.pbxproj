@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044F331D22C667C200E80103 /* UpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F331C22C667C200E80103 /* UpdateResponse.swift */; };
+		044F331F22C732A400E80103 /* Logout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F331E22C732A400E80103 /* Logout.swift */; };
 		04A11A6C22C357BB00181528 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A6B22C357BB00181528 /* UserData.swift */; };
 		04A11A7022C3943600181528 /* POSTlocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A6F22C3943600181528 /* POSTlocation.swift */; };
 		04A11A7222C3C22F00181528 /* StorageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A11A7122C3C22F00181528 /* StorageController.swift */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		044F331C22C667C200E80103 /* UpdateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateResponse.swift; sourceTree = "<group>"; };
+		044F331E22C732A400E80103 /* Logout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logout.swift; sourceTree = "<group>"; };
 		04A11A6B22C357BB00181528 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		04A11A6F22C3943600181528 /* POSTlocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POSTlocation.swift; sourceTree = "<group>"; };
 		04A11A7122C3C22F00181528 /* StorageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageController.swift; sourceTree = "<group>"; };
@@ -111,6 +115,8 @@
 				04D9ECBC22C07C51000948B3 /* Responses */,
 				04D9ECAE22BCFC3A000948B3 /* StudentLocation.swift */,
 				04A11A6B22C357BB00181528 /* UserData.swift */,
+				044F331E22C732A400E80103 /* Logout.swift */,
+				044F331C22C667C200E80103 /* UpdateResponse.swift */,
 				04D9ECBE22C07C92000948B3 /* UserLoginResponse.swift */,
 				04D9ECB622BE9831000948B3 /* StudentsLocationData.swift */,
 				04A11A7322C5B0BD00181528 /* POSTresponse.swift */,
@@ -232,6 +238,7 @@
 				04D9ECAF22BCFC3A000948B3 /* StudentLocation.swift in Sources */,
 				04A11A7622C5B57600181528 /* ResultViewController.swift in Sources */,
 				04D9ECBF22C07C92000948B3 /* UserLoginResponse.swift in Sources */,
+				044F331F22C732A400E80103 /* Logout.swift in Sources */,
 				04D9ECBB22C06E8E000948B3 /* ButtonsDesign.swift in Sources */,
 				04A11A6C22C357BB00181528 /* UserData.swift in Sources */,
 				04D9ECB522BE938B000948B3 /* TableViewController.swift in Sources */,
@@ -248,6 +255,7 @@
 				04D9ECB322BD1EF4000948B3 /* APIRequests.swift in Sources */,
 				04D9EC9922BCF86D000948B3 /* AppDelegate.swift in Sources */,
 				04A11A7422C5B0BD00181528 /* POSTresponse.swift in Sources */,
+				044F331D22C667C200E80103 /* UpdateResponse.swift in Sources */,
 				04D9ECB722BE9831000948B3 /* StudentsLocationData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
