@@ -10,7 +10,7 @@ import Foundation
 
 class APIRequests{
     
-//    static let udacityLogin = UserLogin(udacity: Login(username: "gajewski.lukasz@hotmail.com", password: "CWFe5T9Hs6B"))
+
     
     struct Auth {
         static var keyAccount = ""
@@ -32,7 +32,7 @@ class APIRequests{
         var urlBody: String {
             switch self {
             case .establishSession: return Endpoints.base + "session"
-            case .getStudentsLocation: return Endpoints.base + "StudentLocation?order=-updatedAt?limit=100"
+            case .getStudentsLocation: return Endpoints.base + "StudentLocation?order=-updatedAt&limit=100"
             case .postStudentLocation: return Endpoints.base + "StudentLocation"
             case .updateStudentLocation(let objectID): return Endpoints.base + "StudentLocation/\(objectID)"
             case .getUserData: return Endpoints.base + "users/" + Auth.keyAccount

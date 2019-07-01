@@ -26,22 +26,22 @@ class LoginViewController: UIViewController {
         loginButton.isEnabled = false
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
+    
+    
         
-        
-        APIRequests.login(username: "gajewski.lukasz@hotmail.com", password: "CWFe5T9Hs6B", completionHandler: loginHandleResponse(success:error:))
-        
-//        if (loginTextField.text != nil && passwordTextField.text != nil) {
-//            APIRequests.login(username: loginTextField.text!, password: passwordTextField.text!, completionHandler: loginHandleResponse(success:error:))
-//        }
-//        else {
-//            alert("Login", "Please provide username and password")
-//        }
+        if (loginTextField.text != nil && passwordTextField.text != nil) {
+            APIRequests.login(username: loginTextField.text!, password: passwordTextField.text!, completionHandler: loginHandleResponse(success:error:))
+        }
+        else {
+            alert("Login", "Please provide username and password")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         loginButton.isEnabled = true
         loginTextField.delegate = self
         passwordTextField.delegate = self
+        passwordTextField.isSecureTextEntry = true
         activityIndicator.isHidden = true
         
         loginTextField.isEnabled = true
