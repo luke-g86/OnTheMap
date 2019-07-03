@@ -175,10 +175,7 @@ class AddLocationOnMapViewController: UIViewController {
         geocoder.geocodeAddressString(locationName) { (placemarks, error) in
             guard let placemarks = placemarks else {
                 completionHandler(kCLLocationCoordinate2DInvalid, error)
-                let storyboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewController(withIdentifier: "ResultView") as! ResultViewController
-                vc.status(false)
-                self.navigationController?.pushViewController(vc, animated: true)
+               
                 return
             }
             let placemark = placemarks[0]
